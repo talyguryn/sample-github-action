@@ -13,10 +13,12 @@ inputs:
   parse_mode:
     description: 'Mode for parsing entities in the message text'
     required: false
+    default: ''
 
   disable_web_page_preview:
     description: 'Disables link previews for links in this message'
     required: false
+    default: ''
 
 outputs:
   response-body:
