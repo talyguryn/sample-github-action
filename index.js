@@ -1,8 +1,6 @@
-const core = require('@actions/core');
-const github = require('@actions/github');
-
 import querystring from 'querystring';
 import axios from 'axios';
+const core = require('@actions/core');
 
 /**
  * Message formatting styles
@@ -42,8 +40,15 @@ try {
         throw new Error(`Bad \`parse_mode\` param. Use one of the following: ${PARSE_MODE_STYLES.join(', ')}`);
     }
 
+    /**
+     * Disables link previews for links in this message
+     * @type {string|boolean}
+     */
     const disable_web_page_preview = core.getInput('disable_web_page_preview') || false;
 
+    /**
+     * Send message request
+     */
     axios({
         method: 'POST',
         url: webhook,
@@ -54,6 +59,9 @@ try {
         })
     })
         .then(response => {
+            /**
+             * Return response body and status code
+             */
             core.setOutput("response-body", response.data);
             core.setOutput("response-code", response.status);
         })

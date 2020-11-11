@@ -1,27 +1,48 @@
-# Hello world javascript action
+# @codex_bot notifier
 
-This action prints "Hello World" or "Hello" + the name of a person to greet to the log.
+This action sends a notification message to Telegram or Slack chat.
+
+![banner](./assets/banner.png)
+
+Powered by [@codex_bot/notify](https://github.com/codex-bot/notify) application.
 
 ## Inputs
 
-### `who-to-greet`
+### `webhook`
 
-**Required** The name of the person to greet. Default `"World"`.
+**Required.** Endpoint for sending message to chat.
+
+### `message`
+
+**Required.** Message text.
+
+### `parse_mode`
+
+Mode for parsing entities in the message text. Empty by default.  
+
+`HTML` or `Markdown` (case insensitive) styles are supported.
+
+### `disable_web_page_preview`
+
+Disables link previews for links in this message. `false` by default.
 
 ## Outputs
 
-### `time`
+### `response-body`
 
-The time we greeted you.
+Response message
+
+### `response-code`
+
+Response status code
 
 ## Example usage
 
 ```
-uses: actions/hello-world-javascript-action@v1.1
+uses: talyguryn/sample-github-action@v2.6
 with:
-  who-to-greet: 'Mona the Octocat'
+  webhook: ${{ secrets.CODEX_BOT_CHAT }}
+  message: '📦 [@editorjs/editorjs](https://npmjs.com/package/@editorjs/editorjs) 2.19.0 was published'
+  parse_mode: 'markdown'
+  disable_web_page_preview: true
 ```
-
-## Reference
-
-https://docs.github.com/en/free-pro-team@latest/actions/creating-actions/creating-a-javascript-action
