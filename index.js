@@ -9,9 +9,9 @@ import axios from 'axios';
  * @type {string[]}
  */
 const PARSE_MODE_STYLES = [
-    'HTML',
-    'Markdown',
-    'MarkdownV2'
+    'html',
+    'markdown',
+    'markdownv2'
 ]
 
 try {
@@ -38,7 +38,7 @@ try {
      * @type {string}
      */
     const parse_mode = core.getInput('parse_mode');
-    if (parse_mode && !PARSE_MODE_STYLES.includes(parse_mode)) {
+    if (parse_mode && !PARSE_MODE_STYLES.includes(parse_mode.toLowerCase())) {
         throw new Error(`Bad \`parse_mode\` param. Use one of the following: ${PARSE_MODE_STYLES.join(', ')}`);
     }
 
@@ -48,9 +48,9 @@ try {
         method: 'POST',
         url: webhook,
         data: querystring.stringify({
-            message: message,
-            parse_mode: parse_mode,
-            disable_web_page_preview: !!disable_web_page_preview,
+            message,
+            parse_mode,
+            disable_web_page_preview,
         })
     })
         .then(response => {
