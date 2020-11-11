@@ -2,8 +2,12 @@
   "name": "sample-github-action",
   "version": "0.0.0",
   "main": "index.js",
-  "dependencies": {
+  "scripts": {
+    "build": "ncc build index.js --minify"
+  },
+  "devDependencies": {
     "@actions/core": "^1.2.6",
-    "@actions/github": "^4.0.0"
+    "@actions/github": "^4.0.0",
+    "@vercel/ncc": "^0.25.1"
   }
 }
