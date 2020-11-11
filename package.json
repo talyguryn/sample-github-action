@@ -4,7 +4,6 @@
   "main": "index.js",
   "scripts": {
     "build": "ncc build index.js --minify",
-    "precommit": "yarn build"
   },
   "devDependencies": {
     "@actions/core": "^1.2.6",
