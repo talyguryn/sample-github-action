@@ -1,13 +1,30 @@
-name: 'Hello World'
-description: 'Greet someone and record the time'
+name: '@codex_bot notifier'
+description: 'Send notification to chat from @codex_bot'
+
 inputs:
-  who-to-greet:  # id of input
-    description: 'Who to greet'
+  webhook:
+    description: 'Endpoint for sending message to chat'
     required: true
-    default: 'World'
+
+  message:
+    description: 'Message text'
+    required: true
+
+  parse_mode:
+    description: 'Mode for parsing entities in the message text'
+    required: false
+
+  disable_web_page_preview:
+    description: 'Disables link previews for links in this message'
+    required: false
+
 outputs:
-  time: # id of output
-    description: 'The time we greeted you'
+  response-body:
+    description: 'Response message'
+
+  response-code:
+    description: 'Response code'
+
 runs:
   using: 'node12'
   main: 'dist/index.js'
