@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "main": "index.js",
   "scripts": {
-    "build": "ncc build index.js --minify",
+    "build": "ncc build index.js --minify"
   },
   "devDependencies": {
     "@actions/core": "^1.2.6",
