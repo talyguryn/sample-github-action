@@ -1,8 +1,8 @@
+![banner](./assets/banner.png)
+
 # @codex_bot notifier
 
 This action sends a notification message to Telegram or Slack chat.
-
-![banner](./assets/banner.png)
 
 Powered by [@codex_bot/notify](https://github.com/codex-bot/notify) application.
 
