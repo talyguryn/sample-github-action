@@ -11,28 +11,8 @@ import axios from 'axios';
 const PARSE_MODE_STYLES = [
     '',
     'html',
-    'markdown',
-    'markdownv2'
+    'markdown'
 ]
-
-/**
- * Convert value to boolean
- * @param {string|number|boolean} value
- * @returns {boolean}
- */
-const getBoolean = function (value) {
-    switch(value){
-        case true:
-        case "true":
-        case 1:
-        case "1":
-        case "on":
-        case "yes":
-            return true;
-        default:
-            return false;
-    }
-}
 
 try {
     /**
@@ -62,7 +42,7 @@ try {
         throw new Error(`Bad \`parse_mode\` param. Use one of the following: ${PARSE_MODE_STYLES.join(', ')}`);
     }
 
-    const disable_web_page_preview = getBoolean(core.getInput('disable_web_page_preview'));
+    const disable_web_page_preview = core.getInput('disable_web_page_preview') || false;
 
     axios({
         method: 'POST',
