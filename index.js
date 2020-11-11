@@ -28,10 +28,11 @@ try {
      * Message to send
      * @type {string}
      */
-    const message = core.getInput('message');
-    if (!message) {
-        throw new Error('`message` param is missing');
-    }
+    // const message = core.getInput('message');
+    // if (!message) {
+    //     throw new Error('`message` param is missing');
+    // }
+    const message = 'hello';
 
     /**
      * Message formatting style
