@@ -1,31 +1,18 @@
-name: '@codex_bot notifier'
-description: 'Send notification to chat from @codex_bot'
+name: 'Get package info'
+description: 'Get package name and version'
 
 inputs:
-  webhook:
-    description: 'Endpoint for sending message to chat'
-    required: true
-
-  message:
-    description: 'Message text'
-    required: true
-
-  parse_mode:
-    description: 'Mode for parsing entities in the message text'
+  path:
+    description: 'Path to package.json file'
     required: false
-    default: ''
-
-  disable_web_page_preview:
-    description: 'Disables link previews for links in this message'
-    required: false
-    default: ''
+    default: ./
 
 outputs:
-  response-body:
-    description: 'Response message'
+  name:
+    description: 'Package name'
 
-  response-code:
-    description: 'Response code'
+  version:
+    description: 'Package version'
 
 runs:
   using: 'node12'

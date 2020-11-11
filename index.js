@@ -1,73 +1,33 @@
-import querystring from 'querystring';
-import axios from 'axios';
+import fs from 'fs';
+import { join } from 'path';
 const core = require('@actions/core');
 
 /**
- * Message formatting styles
- * @type {string[]}
+ * Read package.json file
+ * @param {string} path
+ * @returns {object}
  */
-const PARSE_MODE_STYLES = [
-    '',
-    'html',
-    'markdown'
-]
+const readPackageJson = function (path) {
+    const packageJson = fs.readFileSync(join(path, 'package.json')).toString();
+
+    return JSON.parse(packageJson);
+};
 
 try {
     /**
-     * Webhook url
+     * Path to directory with package.json file
      * @type {string}
      */
-    const webhook = core.getInput('webhook');
-    if (!webhook) {
-        throw new Error('`webhook` param is missing');
-    }
+    const path = core.getInput('path');
 
     /**
-     * Message to send
-     * @type {string}
+     * Get data from package.json file
+     * @type {object}
      */
-    const message = core.getInput('message');
-    if (!message) {
-        throw new Error('`message` param is missing');
-    }
+    const packageInfo = readPackageJson(path);
 
-    /**
-     * Message formatting style
-     * @type {string}
-     */
-    const parse_mode = core.getInput('parse_mode');
-    if (parse_mode && !PARSE_MODE_STYLES.includes(parse_mode.toLowerCase())) {
-        throw new Error(`Bad \`parse_mode\` param. Use one of the following: ${PARSE_MODE_STYLES.join(', ')}`);
-    }
-
-    /**
-     * Disables link previews for links in this message
-     * @type {string|boolean}
-     */
-    const disable_web_page_preview = core.getInput('disable_web_page_preview') || false;
-
-    /**
-     * Send message request
-     */
-    axios({
-        method: 'POST',
-        url: webhook,
-        data: querystring.stringify({
-            message,
-            parse_mode,
-            disable_web_page_preview,
-        })
-    })
-        .then(response => {
-            /**
-             * Return response body and status code
-             */
-            core.setOutput("response-body", response.data);
-            core.setOutput("response-code", response.status);
-        })
-        .catch(error => {
-            core.setFailed(error.message);
-        });
+    core.setOutput("name", packageInfo.name);
+    core.setOutput("version", packageInfo.version);
 } catch (error) {
     core.setFailed(error.message);
 }
