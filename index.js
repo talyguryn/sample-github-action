@@ -28,6 +28,7 @@ try {
 
     core.setOutput("name", packageInfo.name);
     core.setOutput("version", packageInfo.version);
+    core.setOutput("npmjs-link", `https://www.npmjs.com/package/${packageInfo.name}`);
 } catch (error) {
     core.setFailed(error.message);
 }
