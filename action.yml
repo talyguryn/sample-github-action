@@ -1,21 +1,26 @@
-name: 'Get package info'
-description: 'Get package name and version'
+name: 'Domain monitor'
+description: 'Watch SSL certs and registry date expiring for your domains'
+branding:
+  icon: 'bell'
+  color: 'blue'
 
 inputs:
-  path:
-    description: 'Path to package.json file'
-    required: false
-    default: ./
+  url:
+    description: 'Site domain to be checked (with protocol)'
+    required: true
 
 outputs:
-  name:
-    description: 'Package name'
+  ssl-expire-date:
+    description: 'SSL certificate expire date'
 
-  version:
-    description: 'Package version'
+  ssl-expire-days-left:
+    description: 'SSL certificate expire number of days left'
 
-  npmjs-link:
-    description: 'Link to npmjs.com package page'
+  paid-till-date:
+    description: 'Registry Expiry Date'
+
+  paid-till-days-left:
+    description: 'Registry Expiry number of days left'
 
 runs:
   using: 'node12'

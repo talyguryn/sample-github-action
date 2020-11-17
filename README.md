@@ -1,30 +1,14 @@
-![banner](./assets/banner.png)
+# Domain monitor
 
-# @codex_bot notifier
-
-This action sends a notification message to Telegram or Slack chat.
-
-Powered by [@codex_bot/notify](https://github.com/codex-bot/notify) application.
+Watch SSL certs and registry date expiring for your domains
 
 ## Inputs
 
-### `webhook`
+### `url`
 
-**Required.** Endpoint for sending message to chat.
+Site domain to be checked (with protocol).
 
-### `message`
-
-**Required.** Message text.
-
-### `parse_mode`
-
-Mode for parsing entities in the message text. Empty by default.  
-
-`HTML` or `Markdown` (case insensitive) styles are supported.
-
-### `disable_web_page_preview`
-
-Disables link previews for links in this message. `false` by default.
+<!--
 
 ## Outputs
 
@@ -37,6 +21,7 @@ Response message
 Response status code
 
 ## Example usage
+
 
 ```
 uses: talyguryn/sample-github-action@v2.6

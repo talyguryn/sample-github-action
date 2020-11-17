@@ -1,34 +1,31 @@
-import fs from 'fs';
-import { join } from 'path';
 const core = require('@actions/core');
-
-/**
- * Read package.json file
- * @param {string} path
- * @returns {object}
- */
-const readPackageJson = function (path) {
-    const packageJson = fs.readFileSync(join(path, 'package.json')).toString();
-
-    return JSON.parse(packageJson);
-};
+const Dates = require('./dates');
+const CheckCertificate = require('./tasks/check-certificate');
+const CheckPaidTillDate = require('./tasks/check-paid-till-date');
 
 try {
     /**
-     * Path to directory with package.json file
+     * Site domain to be checked
      * @type {string}
      */
-    const path = core.getInput('path');
+    const URL = core.getInput('url');
+    // const URL = 'https://codex.so';
 
-    /**
-     * Get data from package.json file
-     * @type {object}
-     */
-    const packageInfo = readPackageJson(path);
+    CheckCertificate(URL)
+        .then(date => {
+            core.setOutput("ssl-expire-date", date.toString());
+            core.setOutput("ssl-expire-days-left", Dates.countDays(date));
 
-    core.setOutput("name", packageInfo.name);
-    core.setOutput("version", packageInfo.version);
-    core.setOutput("npmjs-link", `https://www.npmjs.com/package/${packageInfo.name}`);
+            console.log(`SSL: ${Dates.countDays(date)} days left — ssl cert valid till: ${date.toString()}`);
+        })
+
+    CheckPaidTillDate(URL)
+        .then(date => {
+            core.setOutput("paid-till-date", date.toString());
+            core.setOutput("paid-till-days-left", Dates.countDays(date));
+
+            console.log(`PAID: ${Dates.countDays(date)} days left — paid till: ${date.toString()}`);
+        });
 } catch (error) {
     core.setFailed(error.message);
 }
