@@ -18,7 +18,7 @@ try {
 
             console.log(`SSL: ${Dates.countDays(date)} days left — ssl cert valid till: ${date.toString()}`);
         })
-        .catch(core.error);
+        .catch(core.setFailed);
 
     CheckPaidTillDate(URL)
         .then(date => {
