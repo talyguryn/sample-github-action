@@ -19,7 +19,7 @@ try {
             core.setOutput("ssl-expire-date", date.toString());
             core.setOutput("ssl-expire-days-left", Dates.countDays(date));
         })
-        .catch(core.warning);
+        .catch(core.error);
 
     /**
      * Check domain's registry expiry date
@@ -29,7 +29,7 @@ try {
             core.setOutput("paid-till-date", date.toString());
             core.setOutput("paid-till-days-left", Dates.countDays(date));
         })
-        .catch(core.warning);
+        .catch(core.error);
 } catch (error) {
     core.setFailed(error.message);
 }
