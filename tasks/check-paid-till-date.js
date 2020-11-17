@@ -1,12 +1,22 @@
 const parser = require('parse-whois');
 const whois = require('node-whois');
 
+/**
+ * Keys in whois response for getting 'paid till' date
+ * @type {string[]}
+ */
 const KEYS = [
     'Registry Expiry Date',
     'paid-till'
 ];
 
+/**
+ * Get domain's registry expiry date
+ * @param domain
+ * @returns {Promise<Date>}
+ */
 function getDatePaidTill(domain) {
+    /** Get domain from url */
     domain = (new URL(domain)).host;
 
     return new Promise((resolve, reject) => {
@@ -23,7 +33,7 @@ function getDatePaidTill(domain) {
                 }
             }
 
-            if (!paidTillDate) reject(new Error(`No date was found. Domain: ${domain}`));
+            if (!paidTillDate) reject(new Error(`No registry expiry date was found for domain ${domain}`));
 
             resolve(paidTillDate);
         });
