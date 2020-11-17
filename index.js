@@ -9,7 +9,7 @@ try {
      * @type {string}
      */
     const URL = core.getInput('url');
-    // const URL = 'https://codex.so';
+    // const URL = 'https://codex.so/';
 
     CheckCertificate(URL)
         .then(date => {
@@ -18,6 +18,7 @@ try {
 
             console.log(`SSL: ${Dates.countDays(date)} days left — ssl cert valid till: ${date.toString()}`);
         })
+        .catch(core.warning);
 
     CheckPaidTillDate(URL)
         .then(date => {
@@ -25,7 +26,8 @@ try {
             core.setOutput("paid-till-days-left", Dates.countDays(date));
 
             console.log(`PAID: ${Dates.countDays(date)} days left — paid till: ${date.toString()}`);
-        });
+        })
+        .catch(core.warning);
 } catch (error) {
     core.setFailed(error.message);
 }
